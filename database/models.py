@@ -47,6 +47,17 @@ class RegisteredBot(Base):
     ym_display_name: Mapped[str | None] = mapped_column(String(200), nullable=True)
     ym_login: Mapped[str | None] = mapped_column(String(200), nullable=True)
 
+    # --- API mode ---
+    # "bot_api" = classic Bot API (botapi.messenger.yandex.net)
+    # "client_api" = Client API as user-bot (api.messenger.yandex.ru)
+    api_mode: Mapped[str] = mapped_column(String(20), default="bot_api")
+
+    # For client_api mode: service account / user credentials
+    ym_user_login: Mapped[str | None] = mapped_column(String(200), nullable=True)
+    ym_user_password: Mapped[str | None] = mapped_column(Text, nullable=True)
+    ym_refresh_token: Mapped[str | None] = mapped_column(Text, nullable=True)
+    yc_service_account_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
 
     created_at: Mapped[datetime] = mapped_column(
